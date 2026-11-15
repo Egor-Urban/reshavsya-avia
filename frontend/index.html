@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Решись Авиа</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<header>
+    <span>Решись Авиа</span>
+    <a href="#" onclick="logout()">Выйти</a>
+</header>
+<div class="wrap">
+    <div class="block">
+        <h2>Прогноз спроса</h2>
+        <div class="row">
+            <div class="field">
+                <label>Маршрут</label>
+                <select id="route" onchange="loadDates()">
+                    <option value="">Выберите маршрут</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Дата вылета</label>
+                <select id="date">
+                    <option value="">—</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Цена (руб.)</label>
+                <input type="number" id="price" placeholder="Например: 9000" min="0" step="100">
+            </div>
+        </div>
+        <button onclick="run()">Рассчитать</button>
+        <div id="err" class="err"></div>
+    </div>
+
+    <div class="block" id="res" style="display:none">
+        <h2>Результат</h2>
+        <div class="nums">
+            <div class="num"><b id="v-seats">—</b><small>Мест в самолёте</small></div>
+            <div class="num"><b id="v-want">—</b><small>Хотят купить</small></div>
+            <div class="num"><b id="v-buy">—</b><small>Купят (прогноз)</small></div>
+        </div>
+        <div class="hint">Рекомендованная цена (медиана): <b id="v-rec">—</b> руб.</div>
+    </div>
+
+    <div class="block" id="chart-block" style="display:none">
+        <h2>Распределение спроса по сценариям</h2>
+        <canvas id="chart"></canvas>
+    </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

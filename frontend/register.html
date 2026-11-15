@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Регистрация - Решись Авиа</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><span>Решись Авиа</span></header>
+<div class="auth-wrap">
+    <div class="block">
+        <h2>Регистрация</h2>
+        <div class="field mb">
+            <label>Логин</label>
+            <input type="text" id="u" placeholder="Придумайте логин">
+        </div>
+        <div class="field mb">
+            <label>Пароль</label>
+            <input type="password" id="p" placeholder="Придумайте пароль">
+        </div>
+        <button onclick="go()">Зарегистрироваться</button>
+        <div id="err" class="err"></div>
+    </div>
+    <div class="auth-link">Уже есть аккаунт? <a href="login.html">Войти</a></div>
+</div>
+<script>
+async function go() {
+    const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({username: document.getElementById("u").value, password: document.getElementById("p").value})
+    });
+    if (res.ok) {
+        location.href = "/login.html";
+    } else {
+        document.getElementById("err").textContent = (await res.json()).detail || "Ошибка";
+    }
+}
+document.addEventListener("keydown", e => { if (e.key === "Enter") go(); });
+</script>
+</body>
+</html>
